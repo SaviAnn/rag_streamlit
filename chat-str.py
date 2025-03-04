@@ -93,10 +93,10 @@ def retrieve_passage(query):
             top_k = min(3, len(scores))  
             top_indices = torch.topk(scores, top_k).indices.tolist()  
             
-            # Filter by similarity score threshold of 0.5
+            # Filter by similarity score threshold of 0.4
             relevant_passages = [
                 (chunk_texts[i], chunk_ids[i], scores[i].item()) 
-                for i in top_indices if scores[i].item() >= 0.5
+                for i in top_indices if scores[i].item() >= 0.4
             ]
         
         return relevant_passages  # List of tuples: (text, id, score)
@@ -175,6 +175,14 @@ if prompt := st.chat_input("Ask about the Bible..."):
                     st.markdown(f"**Reference Verse {passage_id} (Score: {score:.2f}):** {passage}")
                 st.session_state.messages.append({"role": "assistant", "content": f"**Reference Verse {passage_id} (Score: {score:.2f}):** {passage}"})
         else:
+            response = chat_with_openai(f"""You are a Bible expert. Answer the original question: '{prompt}'. 
+                                       Provide a clear and concise answer, don't mentiot that references were provided to you.""")
+            
             with st.chat_message("assistant"):
-                st.markdown("No relevant passages found (score < 0.5).")
-            st.session_state.messages.append({"role": "assistant", "content": "No relevant passages found (score < 0.5)."})
+                st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
+            
+    else:
+            with st.chat_message("assistant"):
+                st.markdown("Good question, but I am here to discuss the Holy Bible.")
+            st.session_state.messages.append({"role": "assistant", "content": "Good question, but I am here to discuss the Holy Bible."})
