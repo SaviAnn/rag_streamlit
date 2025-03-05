@@ -6,6 +6,7 @@ import time
 import torch
 import pickle
 from sentence_transformers import SentenceTransformer, util
+#from langchain.memory import ConversationBufferWindowMemory
 
 st.title("⚡ Bible Wisdom Bot")
 
@@ -24,7 +25,7 @@ def load_model():
 
 model = load_model()
 
-# 📌 **Load JSON Data (Cached)**
+# **Load JSON Data (Cached)**
 file_path = "output.json"
 
 @st.cache_data
@@ -44,7 +45,7 @@ data = load_data()
 chunk_texts = [item.get("content", "") for item in data]
 chunk_ids = [item.get("chunk_id", "Unknown") for item in data]
 
-# 📌 **Precompute & Save Embeddings to Avoid Recalculation**
+#  **Precompute & Save Embeddings to Avoid Recalculation**
 embeddings_path = "embeddings.pkl"
 
 @st.cache_resource
@@ -75,10 +76,10 @@ def compute_and_save_embeddings():
 
 embeddings = compute_and_save_embeddings()
 
-# 📌 **Remove Loading Message After Completion**
+#  **Remove Loading Message After Completion**
 loading_message.empty()
 
-# 📌 **OpenAI API Details**
+#  **OpenAI API Details**
 API_URL = "https://ragtest9908777201.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
 API_KEY = os.getenv("OPENAI_API_KEY", "F0XafLT9zQUTFRCRg3HC3EB2DyIgeVgSDJo41cP1qS3aertfIM9dJQQJ99BBACHYHv6XJ3w3AAAAACOGysU2")
 
@@ -170,13 +171,24 @@ if prompt := st.chat_input("Ask about the Bible..."):
                 st.markdown(response)
             st.session_state.messages.append({"role": "assistant", "content": response})
             
-            for passage, passage_id, score in relevant_passages:
-                with st.chat_message("assistant"):
-                    st.markdown(f"**Reference Verse {passage_id} (Score: {score:.2f}):** {passage}")
-                st.session_state.messages.append({"role": "assistant", "content": f"**Reference Verse {passage_id} (Score: {score:.2f}):** {passage}"})
+
+            references_list = [
+                f"*📖 Reference Verse {passage_id} (Score: {score:.2f}):* {passage}  "  # Двойной пробел перед \n
+                for passage, passage_id, score in relevant_passages
+            ]
+            
+
+            message_content = "**Answer is based on these references:**  \n" + "  \n".join(references_list)  # Двойные пробелы + \n
+
+
+            with st.chat_message("assistant"):
+                st.markdown(message_content)
+
+            st.session_state.messages.append({"role": "assistant", "content": message_content})
+
         else:
             response = chat_with_openai(f"""You are a Bible expert. Answer the original question: '{prompt}'. 
-                                       Provide a clear and concise answer, don't mentiot that references were provided to you.""")
+                                       Provide a clear and comprehensive answer, don't mentiot that references were provided to you.""")
             
             with st.chat_message("assistant"):
                 st.markdown(response)
