@@ -139,6 +139,9 @@ if prompt := st.chat_input("Ask about the Bible..."):
    
     prompt = update_prompt(prompt)
     print('Updated Prompt:', prompt)
+    with st.chat_message("assistant"):
+        placeholder = st.empty()  
+        placeholder.markdown("Thinking...")
 
     relevance_check = chat_with_openai(
         f"You are a Bible expert. Determine if this question is related to the Holy Bible: '{prompt}'. If yes, respond with 'Relevant'. Otherwise, say 'Good question, but I am here to discuss the Holy Bible.'"
