@@ -187,6 +187,7 @@ if prompt := st.chat_input("Ask about the Bible..."):
         with st.chat_message("assistant"):
             st.markdown(fallback_response)
         st.session_state.messages.append({"role": "assistant", "content": fallback_response})
+        st.rerun()
 # Add buttons for user to choose next action
 if st.session_state.get("waiting_for_choice", False):
     with st.chat_message("assistant"):
