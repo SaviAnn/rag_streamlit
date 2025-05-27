@@ -1,4 +1,4 @@
-# Основные библиотеки
+# Core
 streamlit==1.42.2
 pandas==2.2.3
 numpy==1.26.4
@@ -9,21 +9,21 @@ pydeck==0.9.1
 watchdog==3.0.0
 Pillow==11.1.0
 
-# NLP / ML
+# NLP
 transformers==4.38.2
+tokenizers==0.18.1        
 torch==2.2.2
 sentence-transformers==2.6.1
-tokenizers==0.19.1
 safetensors==0.5.3
 
-# Streamlit
+# Streamlit dependencies
 protobuf==3.20.3
 rich==13.7.1                
 markdown-it-py==3.0.0
 mdurl==0.1.2
 pyyaml==6.0.1
 
-# Утилиты
+# Utilities
 altair==5.2.0
 requests==2.31.0
 tqdm==4.66.2
