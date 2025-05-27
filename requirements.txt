@@ -10,8 +10,8 @@ watchdog==3.0.0
 Pillow==11.1.0
 
 # NLP
-transformers==4.36.2
-tokenizers==0.18.0
+transformers==4.35.2
+tokenizers==0.15.2
 torch==2.2.2
 sentence-transformers==2.6.1
 safetensors==0.5.3
