@@ -1,4 +1,4 @@
-# Core
+# Streamlit Core
 streamlit==1.42.2
 pandas==2.2.3
 numpy==1.26.4
@@ -9,16 +9,16 @@ pydeck==0.9.1
 watchdog==3.0.0
 Pillow==11.1.0
 
-# NLP
+# NLP / ML
 transformers==4.38.2
-tokenizers==0.18.1        
+tokenizers==0.18.0       
 torch==2.2.2
 sentence-transformers==2.6.1
 safetensors==0.5.3
 
 # Streamlit dependencies
 protobuf==3.20.3
-rich==13.7.1                
+rich==13.7.1             
 markdown-it-py==3.0.0
 mdurl==0.1.2
 pyyaml==6.0.1
