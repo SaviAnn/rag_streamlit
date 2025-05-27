@@ -1,3 +1,4 @@
+# Основные библиотеки
 streamlit==1.42.2
 pandas==2.2.3
 numpy==1.26.4
@@ -8,21 +9,21 @@ pydeck==0.9.1
 watchdog==3.0.0
 Pillow==11.1.0
 
-# NLP
+# NLP / ML
 transformers==4.38.2
 torch==2.2.2
 sentence-transformers==2.6.1
 tokenizers==0.19.1
 safetensors==0.5.3
 
-# Streamlit deps
+# Streamlit
 protobuf==3.20.3
-rich==13.7.1
+rich==13.7.1                
 markdown-it-py==3.0.0
 mdurl==0.1.2
 pyyaml==6.0.1
 
-# Support libs
+# Утилиты
 altair==5.2.0
 requests==2.31.0
 tqdm==4.66.2
@@ -32,7 +33,3 @@ tenacity==8.2.3
 filelock==3.13.1
 fsspec==2024.3.1
 packaging==23.2
-
-# For LangChain (optional)
-langchain==0.1.20
-openai==1.23.2
